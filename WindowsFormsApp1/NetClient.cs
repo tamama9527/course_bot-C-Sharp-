@@ -54,6 +54,7 @@ namespace WindowsFormsApp1
         {
             WebRequest request = base.GetWebRequest(address);
             HttpWebRequest webRequest = request as HttpWebRequest;
+            webRequest.KeepAlive = true;
             if (webRequest != null) webRequest.CookieContainer = this.CookieContainer;
             //webRequest.Timeout = 5 * 1000;
             return request;
@@ -85,7 +86,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-
+                Console.Write("error");
             }
             return null;
 
