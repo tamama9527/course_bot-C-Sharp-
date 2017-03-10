@@ -15,11 +15,22 @@ namespace WindowsFormsApp1
         public Form2()
         {
             InitializeComponent();
+            DataGridViewRowCollection rows = dataGridView1.Rows;
+
+            for (int i = 0; i < 14; i++)
+            {
+                rows.Add(Convert.ToString(i + 1), "", "", "", "", "");
+                dataGridView1.Rows[i].Resizable = DataGridViewTriState.False;
+            }
+            //rows.Add(new Object[] { 3214, 3214, 3214, 3214 ,3215 });
+            //dataGridView1.Rows[0].HeaderCell.Value="1";
+            //dataGridView1.Rows[0].Resizable = DataGridViewTriState.False;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Close();
+
         }
+
     }
 }

@@ -86,7 +86,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                Console.Write("error");
+                Console.Write(ex);
             }
             return null;
 

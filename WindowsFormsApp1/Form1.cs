@@ -19,7 +19,6 @@ namespace WindowsFormsApp1
         NameValueCollection values = new NameValueCollection();
         Encoding schoolEncoding = Encoding.GetEncoding("utf-8");
         string login_url = "https://course.fcu.edu.tw/Login.aspx";
-        string post_data = "";
         Random ran = new Random(Guid.NewGuid().GetHashCode());
         public Form1()
         {
