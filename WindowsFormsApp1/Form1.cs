@@ -32,8 +32,8 @@ namespace WindowsFormsApp1
             string source = client.DownloadString(login_url, schoolEncoding);
             //產生驗證碼
             string code = ran.Next(9999).ToString("0000");
-            Console.WriteLine(client.ResponseUri);
-            //Console.WriteLine(source);
+
+            //html分析
             HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
             doc.LoadHtml(source);
             HtmlAgilityPack.HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes("//input[@type='hidden']");
@@ -69,8 +69,7 @@ namespace WindowsFormsApp1
 
             //登入網頁
             source = schoolEncoding.GetString(client.UploadValues(login_url, values));
-
-            Form2 f = new Form2();
+            Form2 f = new Form2(account.Text,password.Text,client);
             f.FormClosed += new FormClosedEventHandler(Form2_FormClosed);
             f.Show();
             this.Hide();

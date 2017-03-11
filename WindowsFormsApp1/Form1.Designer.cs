@@ -61,11 +61,13 @@
             // 
             // account
             // 
+            this.account.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.account.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.account.Location = new System.Drawing.Point(23, 46);
             this.account.Name = "account";
             this.account.Size = new System.Drawing.Size(237, 33);
             this.account.TabIndex = 2;
+            this.account.Text = "D0342301";
             // 
             // password
             // 
@@ -74,6 +76,7 @@
             this.password.Name = "password";
             this.password.Size = new System.Drawing.Size(237, 33);
             this.password.TabIndex = 3;
+            this.password.Text = "DeUs85072";
             this.password.UseSystemPasswordChar = true;
             // 
             // checkBox1
