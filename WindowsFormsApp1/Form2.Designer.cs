@@ -71,6 +71,7 @@ namespace WindowsFormsApp1
             this.button1.TabIndex = 0;
             this.button1.Text = "登出";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // groupBox1
             // 
@@ -215,7 +216,6 @@ namespace WindowsFormsApp1
             this.textBox2.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.textBox2.MaxLength = 4;
             this.textBox2.Name = "textBox2";
-            this.textBox2.AutoSize = false;
             this.textBox2.Size = new System.Drawing.Size(45, 25);
             this.textBox2.TabIndex = 1;
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;

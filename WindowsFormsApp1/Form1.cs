@@ -50,6 +50,7 @@ namespace WindowsFormsApp1
             Cookie check_code = new Cookie("CheckCode", code);
             check_code.Domain = "course.fcu.edu.tw";
             client.CookieContainer.Add(check_code);
+            Console.WriteLine("HAHA");
 
         }
 
@@ -70,13 +71,8 @@ namespace WindowsFormsApp1
             //登入網頁
             source = schoolEncoding.GetString(client.UploadValues(login_url, values));
             Form2 f = new Form2(account.Text,password.Text,client);
-            f.FormClosed += new FormClosedEventHandler(Form2_FormClosed);
             f.Show();
             this.Hide();
-        }
-        private void Form2_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            this.Show();
         }
     }
 }
