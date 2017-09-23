@@ -50,7 +50,6 @@ namespace WindowsFormsApp1
             Cookie check_code = new Cookie("CheckCode", code);
             check_code.Domain = "course.fcu.edu.tw";
             client.CookieContainer.Add(check_code);
-            Console.WriteLine("HAHA");
 
         }
 
