@@ -67,7 +67,6 @@
             this.account.Name = "account";
             this.account.Size = new System.Drawing.Size(237, 33);
             this.account.TabIndex = 2;
-            this.account.Text = "D0342301";
             // 
             // password
             // 
@@ -76,7 +75,6 @@
             this.password.Name = "password";
             this.password.Size = new System.Drawing.Size(237, 33);
             this.password.TabIndex = 3;
-            this.password.Text = "DeUs85072";
             this.password.UseSystemPasswordChar = true;
             // 
             // checkBox1
@@ -88,6 +86,7 @@
             this.checkBox1.TabIndex = 4;
             this.checkBox1.Text = "記住我";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // button1
             // 

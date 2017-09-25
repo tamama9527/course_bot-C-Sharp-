@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -20,9 +21,11 @@ namespace WindowsFormsApp1
         Encoding schoolEncoding = Encoding.GetEncoding("utf-8");
         string login_url = "https://course.fcu.edu.tw/Login.aspx";
         Random ran = new Random(Guid.NewGuid().GetHashCode());
+        public User user;
         public Form1()
         {
             InitializeComponent();
+            first();
             prepare();
         }
 
@@ -69,9 +72,81 @@ namespace WindowsFormsApp1
 
             //登入網頁
             source = schoolEncoding.GetString(client.UploadValues(login_url, values));
-            Form2 f = new Form2(account.Text,password.Text,client);
-            f.Show();
-            this.Hide();
+            if (Convert.ToString(client.ResponseUri) != "https://course.fcu.edu.tw/Login.aspx") {
+                this.Hide();
+                Form2 f = new Form2(account.Text, password.Text, client, user);
+                f.ShowDialog();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("帳號或密碼錯誤");
+            }
+            
+        }
+        void first()
+        {
+            try
+            {   // Open the text file using a stream reader.
+                using (StreamReader r = new StreamReader("config.json"))
+                {
+                    string json = r.ReadToEnd();
+                    user = JsonConvert.DeserializeObject<User>(json);
+
+                    if (user.Rember == true)
+                    {
+                        account.Text = user.account;
+                        password.Text = user.passwd;
+                    }
+                    foreach (string s in user.firstchoose)
+                    {
+                        Console.WriteLine(s);
+                    }
+                    checkBox1.Checked = true;
+                    r.Close();
+
+                }
+
+            }
+            catch (Exception)
+            {
+                user = new User();
+            }
+            
+        }
+        
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            user.account = account.Text;
+            user.passwd = password.Text;
+            if (checkBox1.Checked == true)
+            {
+                user.Rember = true;
+                using (StreamWriter outputFile = new StreamWriter(@"config.json"))
+                {
+                    string json = JsonConvert.SerializeObject(user, Formatting.Indented);
+                    outputFile.Write(json);
+                    outputFile.Close();
+                }
+            }
+            else
+            {
+                user.Rember = false;
+                using (StreamWriter outputFile = new StreamWriter(@"config.json"))
+                {
+                    string json = JsonConvert.SerializeObject(user, Formatting.Indented);
+                    outputFile.Write(json);
+                    outputFile.Close();
+                }
+            }
         }
     }
+}
+public class User
+{
+    public string account { get; set; }
+    public string passwd { get; set; }
+    public bool Rember { get; set; }
+    public List<string> firstchoose { get; set; }
 }

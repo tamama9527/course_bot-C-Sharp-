@@ -34,12 +34,13 @@ namespace WindowsFormsApp1
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.stopget = new System.Windows.Forms.Button();
+            this.startget = new System.Windows.Forms.Button();
             this.already_point = new System.Windows.Forms.Label();
             this.label_already_point = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.class_text = new System.Windows.Forms.Label();
+            this.course_class = new System.Windows.Forms.Label();
             this.time_text = new System.Windows.Forms.Label();
             this.status_text = new System.Windows.Forms.Label();
             this.point_text = new System.Windows.Forms.Label();
@@ -62,8 +63,7 @@ namespace WindowsFormsApp1
             this.week4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.week5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.course_class = new System.Windows.Forms.Label();
-            this.class_text = new System.Windows.Forms.Label();
+            this.logger = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -82,8 +82,8 @@ namespace WindowsFormsApp1
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button4);
-            this.groupBox1.Controls.Add(this.button3);
+            this.groupBox1.Controls.Add(this.stopget);
+            this.groupBox1.Controls.Add(this.startget);
             this.groupBox1.Controls.Add(this.already_point);
             this.groupBox1.Controls.Add(this.label_already_point);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
@@ -93,23 +93,25 @@ namespace WindowsFormsApp1
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "個人資料";
             // 
-            // button4
+            // stopget
             // 
-            this.button4.Location = new System.Drawing.Point(103, 65);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(82, 23);
-            this.button4.TabIndex = 15;
-            this.button4.Text = "停止搶課";
-            this.button4.UseVisualStyleBackColor = true;
+            this.stopget.Location = new System.Drawing.Point(100, 65);
+            this.stopget.Name = "stopget";
+            this.stopget.Size = new System.Drawing.Size(85, 23);
+            this.stopget.TabIndex = 15;
+            this.stopget.Text = "停止搶課";
+            this.stopget.UseVisualStyleBackColor = true;
+            this.stopget.Click += new System.EventHandler(this.stopget_Click);
             // 
-            // button3
+            // startget
             // 
-            this.button3.Location = new System.Drawing.Point(6, 65);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(91, 23);
-            this.button3.TabIndex = 14;
-            this.button3.Text = "開始搶課";
-            this.button3.UseVisualStyleBackColor = true;
+            this.startget.Location = new System.Drawing.Point(6, 65);
+            this.startget.Name = "startget";
+            this.startget.Size = new System.Drawing.Size(85, 23);
+            this.startget.TabIndex = 14;
+            this.startget.Text = "開始搶課";
+            this.startget.UseVisualStyleBackColor = true;
+            this.startget.Click += new System.EventHandler(this.startget_Click);
             // 
             // already_point
             // 
@@ -128,15 +130,6 @@ namespace WindowsFormsApp1
             this.label_already_point.Size = new System.Drawing.Size(91, 24);
             this.label_already_point.TabIndex = 2;
             this.label_already_point.Text = "已選學分:";
-            // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(437, 12);
-            this.listView1.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(294, 344);
-            this.listView1.TabIndex = 2;
-            this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // groupBox2
             // 
@@ -161,6 +154,25 @@ namespace WindowsFormsApp1
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "課程檢索";
+            // 
+            // class_text
+            // 
+            this.class_text.AutoSize = true;
+            this.class_text.Location = new System.Drawing.Point(68, 99);
+            this.class_text.Margin = new System.Windows.Forms.Padding(3, 20, 3, 0);
+            this.class_text.Name = "class_text";
+            this.class_text.Size = new System.Drawing.Size(0, 12);
+            this.class_text.TabIndex = 15;
+            // 
+            // course_class
+            // 
+            this.course_class.AutoSize = true;
+            this.course_class.Location = new System.Drawing.Point(8, 99);
+            this.course_class.Margin = new System.Windows.Forms.Padding(3, 20, 3, 0);
+            this.course_class.Name = "course_class";
+            this.course_class.Size = new System.Drawing.Size(56, 12);
+            this.course_class.TabIndex = 14;
+            this.course_class.Text = "開課班級:";
             // 
             // time_text
             // 
@@ -200,21 +212,23 @@ namespace WindowsFormsApp1
             // 
             // RemoveButton
             // 
-            this.RemoveButton.Location = new System.Drawing.Point(103, 250);
+            this.RemoveButton.Location = new System.Drawing.Point(100, 250);
             this.RemoveButton.Name = "RemoveButton";
-            this.RemoveButton.Size = new System.Drawing.Size(82, 23);
+            this.RemoveButton.Size = new System.Drawing.Size(85, 23);
             this.RemoveButton.TabIndex = 9;
             this.RemoveButton.Text = "移除搶課";
             this.RemoveButton.UseVisualStyleBackColor = true;
+            this.RemoveButton.Click += new System.EventHandler(this.RemoveButton_Click);
             // 
             // AddButton
             // 
             this.AddButton.Location = new System.Drawing.Point(6, 250);
             this.AddButton.Name = "AddButton";
-            this.AddButton.Size = new System.Drawing.Size(91, 23);
+            this.AddButton.Size = new System.Drawing.Size(85, 23);
             this.AddButton.TabIndex = 8;
             this.AddButton.Text = "加入搶課";
             this.AddButton.UseVisualStyleBackColor = true;
+            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // course_time
             // 
@@ -229,7 +243,7 @@ namespace WindowsFormsApp1
             // course_status
             // 
             this.course_status.AutoSize = true;
-            this.course_status.Location = new System.Drawing.Point(6, 163);
+            this.course_status.Location = new System.Drawing.Point(8, 163);
             this.course_status.Margin = new System.Windows.Forms.Padding(3, 20, 3, 0);
             this.course_status.Name = "course_status";
             this.course_status.Size = new System.Drawing.Size(44, 12);
@@ -239,7 +253,7 @@ namespace WindowsFormsApp1
             // course_point
             // 
             this.course_point.AutoSize = true;
-            this.course_point.Location = new System.Drawing.Point(6, 131);
+            this.course_point.Location = new System.Drawing.Point(8, 131);
             this.course_point.Margin = new System.Windows.Forms.Padding(3, 20, 3, 0);
             this.course_point.Name = "course_point";
             this.course_point.Size = new System.Drawing.Size(32, 12);
@@ -297,6 +311,7 @@ namespace WindowsFormsApp1
             this.button2.TabIndex = 5;
             this.button2.Text = "結束";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // dataGridView1
             // 
@@ -389,34 +404,23 @@ namespace WindowsFormsApp1
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "課表";
             // 
-            // course_class
+            // logger
             // 
-            this.course_class.AutoSize = true;
-            this.course_class.Location = new System.Drawing.Point(8, 99);
-            this.course_class.Margin = new System.Windows.Forms.Padding(3, 20, 3, 0);
-            this.course_class.Name = "course_class";
-            this.course_class.Size = new System.Drawing.Size(56, 12);
-            this.course_class.TabIndex = 14;
-            this.course_class.Text = "開課班級:";
-            // 
-            // class_text
-            // 
-            this.class_text.AutoSize = true;
-            this.class_text.Location = new System.Drawing.Point(68, 99);
-            this.class_text.Margin = new System.Windows.Forms.Padding(3, 20, 3, 0);
-            this.class_text.Name = "class_text";
-            this.class_text.Size = new System.Drawing.Size(0, 12);
-            this.class_text.TabIndex = 15;
+            this.logger.Location = new System.Drawing.Point(437, 12);
+            this.logger.Multiline = true;
+            this.logger.Name = "logger";
+            this.logger.Size = new System.Drawing.Size(294, 344);
+            this.logger.TabIndex = 7;
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(743, 400);
+            this.Controls.Add(this.logger);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -429,6 +433,7 @@ namespace WindowsFormsApp1
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -437,7 +442,6 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label_already_point;
-        private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.Label already_point;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox code_box;
@@ -462,9 +466,10 @@ namespace WindowsFormsApp1
         private Label point_text;
         private Label status_text;
         private Label time_text;
-        private Button button4;
-        private Button button3;
+        private Button stopget;
+        private Button startget;
         private Label course_class;
         private Label class_text;
+        private TextBox logger;
     }
 }
