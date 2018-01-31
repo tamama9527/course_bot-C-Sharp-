@@ -242,7 +242,7 @@ namespace WindowsFormsApp1
             while (run)
             {
                 foreach (string code in user.firstchoose.ToArray())
-                {  
+                {
                     temp_code = code;
                     doc.LoadHtml(source);
                     hidden_patten = doc.DocumentNode.SelectNodes("//input[@value][@type='hidden']");
@@ -313,14 +313,19 @@ namespace WindowsFormsApp1
                         values.Clear();
                         doc.LoadHtml(source);
                         temp = doc.DocumentNode.SelectSingleNode("//*[@id='ctl00_MainContent_TabContainer1_tabSelected_lblMsgBlock']/span");
-                        if (temp.InnerText == "加選成功")
+                        if (temp != null)
                         {
-                            user.firstchoose.Remove(code);
-                            source = client2.DownloadString(client2.ResponseUri, schoolEncoding);
-                            mi = new MethodInvoker(this.UpdateUI);
-                            this.BeginInvoke(mi, null);
+                            if (temp.InnerText == "加選成功")
+                            {
+                                user.firstchoose.Remove(code);
+                                mi = new MethodInvoker(this.UpdateUI);
+                                this.BeginInvoke(mi, null);
+                            }
+                                
                         }
                     }
+                    source = client2.DownloadString(client2.ResponseUri, schoolEncoding);
+                    Console.WriteLine(source);
                 }
                 if (user.firstchoose.Count == 0)
                 {
