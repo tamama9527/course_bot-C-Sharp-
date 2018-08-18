@@ -58,6 +58,7 @@ namespace WindowsFormsApp1
 
         private void login(object sender, EventArgs e)
         {
+            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
             //設定header
             client.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36");
             client.Headers.Add("Origin", "http://service105.sds.fcu.edu.tw");
@@ -67,12 +68,20 @@ namespace WindowsFormsApp1
             string source = "";
 
             //增加post資料
-            values.Add("ctl00$Login1$UserName", account.Text);
-            values.Add("ctl00$Login1$Password", password.Text);
+            values["ctl00$Login1$UserName"] = account.Text;
+            values["ctl00$Login1$Password"] = password.Text;
 
             //登入網頁
             source = schoolEncoding.GetString(client.UploadValues(login_url, values));
-            if (Convert.ToString(client.ResponseUri) != "https://course.fcu.edu.tw/Login.aspx") {
+            doc.LoadHtml(source);
+            HtmlAgilityPack.HtmlNode cant_login = doc.DocumentNode.SelectSingleNode("/span[@class='msg B1']");
+            Console.WriteLine(source);
+            Console.WriteLine(values);
+            if (cant_login != null)
+            {
+                MessageBox.Show(doc.DocumentNode.SelectSingleNode("/span[@class='msg B1']").InnerText);
+            }
+            else if (Convert.ToString(client.ResponseUri) != "https://course.fcu.edu.tw/Login.aspx") {
                 this.Hide();
                 Form2 f = new Form2(account.Text, password.Text, client, user);
                 f.ShowDialog();
@@ -97,6 +106,7 @@ namespace WindowsFormsApp1
                     {
                         account.Text = user.account;
                         password.Text = user.passwd;
+                        checkBox1.Checked = true;
                     }
                     foreach (string s in user.firstchoose)
                     {
@@ -133,9 +143,10 @@ namespace WindowsFormsApp1
             else
             {
                 user.Rember = false;
+                User userT = new User();
                 using (StreamWriter outputFile = new StreamWriter(@"config.json"))
                 {
-                    string json = JsonConvert.SerializeObject(user, Formatting.Indented);
+                    string json = JsonConvert.SerializeObject(userT, Formatting.Indented);
                     outputFile.Write(json);
                     outputFile.Close();
                 }

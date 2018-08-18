@@ -82,6 +82,7 @@ namespace WindowsFormsApp1
 
             host = client2.ResponseUri.ToString().Split('?')[0];
             HtmlAgilityPack.HtmlNodeCollection url_nodes = doc.DocumentNode.SelectNodes("//form[@name='aspnetForm']");
+
             url_last = host + url_nodes[0].Attributes["action"].Value;
 
             HtmlAgilityPack.HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes("//span[@id='ctl00_MainContent_lblCredit']");
@@ -100,7 +101,6 @@ namespace WindowsFormsApp1
             nodes = doc.DocumentNode.SelectNodes("//span[@id='ctl00_userInfo1_lblStuID']");
             name += nodes[0].InnerText;
             name += ")";
-
             //設定標題
             this.Text = name;
             get_course_table(source);
@@ -144,6 +144,13 @@ namespace WindowsFormsApp1
             status_text.Text = course_data.ChildNodes[5].InnerText;
             point_text.Text = course_data.ChildNodes[6].InnerText;
             time_text.Text = course_data.ChildNodes[7].InnerText;
+        }
+        private void error_logout()
+        {
+            this.Close();
+            Form1 f = new Form1();
+            f.Show();
+            this.Close();
         }
         private void button1_Click_1(object sender, EventArgs e)
         {
